@@ -28,4 +28,34 @@ class VideoStatistics extends ActiveRecord
 
         return $json;
     }
+    
+    
+    public static function getVideoStatisticsByIdForGoogleCharts($youtube_video_id){
+        
+        $statistics = self::find()->where(['youtube_video_id' => $youtube_video_id])->all();
+
+
+        $video_view_count = [];
+        $video_comment_count = [];
+        $video_like_dislike_count = [];
+        $channel_subscriber_count = [];
+        foreach ($statistics as $num => $value) {
+            $video_view_count[] = "[" . $num . ", " . $value['video_view_count'] . "]";
+            $video_comment_count[] = "[" . $num . ", " . $value['video_comment_count'] . "]";
+            $video_like_dislike_count[] = "[" . $num . ", " . $value['video_like_count'] . ", " . $value['video_dislike_count'] . "]";
+            $channel_subscriber_count[] = "[" . $num . ", " . $value['channel_subscriber_count'] . "]";
+        }
+
+        //$data[] = "['".$row['city']."', ".$row['crimes']."]";
+        //"['".$row['city']."', ".$row['crimes']."]";
+
+        $result['video_view_count'] = implode(", ", $video_view_count);
+        $result['video_comment_count'] = implode(", ", $video_comment_count);
+        $result['video_like_dislike_count'] = implode(", ", $video_like_dislike_count);
+        $result['channel_subscriber_count'] = implode(", ", $channel_subscriber_count);
+
+        return $result;
+
+        
+    }
 }

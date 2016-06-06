@@ -40,7 +40,16 @@ class Test8Controller extends Controller
         $video->save();
     }
 
-/*
+    public function actionShowStatisticsGoogleCharts(){
+        $videos = Videos::find()->all();
+        foreach ($videos as &$video) {
+            $statistics = VideoStatistics::getVideoStatisticsByIdForGoogleCharts($video->youtube_video_id);
+            $video->statistics = $statistics;
+        }
+        return $this->render('show-statistics-google-charts', ['videos' => $videos]);
+    }
+
+
     public function actionUpdateStatistics()
     {
         $videos = Videos::find()->all();
@@ -57,6 +66,6 @@ class Test8Controller extends Controller
 
             $statistics->save();
         }
-    }*/
+    }
 
 }

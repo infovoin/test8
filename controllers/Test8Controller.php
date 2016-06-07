@@ -12,7 +12,7 @@ use yii\web\Controller;
 
 class Test8Controller extends Controller
 {
-    public function actionShowStatistics()
+    public function actionShowStatisticsHighcharts()
     {
         $videos = Videos::find()->all();
 
@@ -20,7 +20,7 @@ class Test8Controller extends Controller
             $json = VideoStatistics::getVideoStatisticsById($video->youtube_video_id);
             $video->statistics = $json;
         }
-        return $this->render('show-statistics', ['videos' => $videos]);
+        return $this->render('show-statistics-highcharts', ['videos' => $videos]);
     }
 
     public function actionAddVideos()
